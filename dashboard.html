@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Dashboard - AquaMonitor</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-tint"></i>
+          <span>AquaMonitor</span>
+        </div>
+        <ul class="nav-menu">
+          <li>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+          </li>
+          <li>
+            <a href="dashboard.html" class="active"
+              ><i class="fas fa-gauge"></i> Live Dashboard</a
+            >
+          </li>
+          <li>
+            <a href="data.html"
+              ><i class="fas fa-chart-line"></i> Data History</a
+            >
+          </li>
+          <li>
+            <a href="about.html"><i class="fas fa-users"></i> About</a>
+          </li>
+        </ul>
+
+        <div class="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </nav>
+
+    <div class="dashboard-container">
+      <h1><i class="fas fa-gauge-high"></i> Live Monitoring Dashboard</h1>
+      <p class="last-update">
+        Last updated: <span id="update-time">Just now</span>
+      </p>
+
+      <div class="dashboard-header">
+        <div class="location-info">
+          <h2><i class="fas fa-map-marker-alt"></i> Monitoring Station #1</h2>
+          <p>River Water Source, University Campus</p>
+        </div>
+        <div class="control-panel">
+          <button class="btn-refresh" id="refreshBtn">
+            <i class="fas fa-sync-alt"></i> Refresh
+          </button>
+          <button class="btn-alerts" id="alertsBtn">
+            <i class="fas fa-bell"></i> Alerts
+          </button>
+        </div>
+      </div>
+
+      <!-- Real-time Sensors Grid -->
+      <div class="sensors-grid">
+        <!-- pH Sensor -->
+        <div class="sensor-card">
+          <div class="sensor-header">
+            <div class="sensor-icon-circle">
+              <i class="fas fa-water"></i>
+            </div>
+            <h3>pH Level</h3>
+            <div class="status-indicator good"></div>
+          </div>
+          <div class="sensor-value" id="ph-value">7.2</div>
+          <div class="sensor-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 65%"></div>
+            </div>
+            <div class="progress-labels">
+              <span>Acidic 0</span>
+              <span>Neutral 7</span>
+              <span>Basic 14</span>
+            </div>
+          </div>
+          <div class="sensor-info">
+            <p><i class="fas fa-info-circle"></i> Safe range: 6.5 - 8.5</p>
+            <p class="update-time">
+              <i class="fas fa-clock"></i> Updated: <span>10s ago</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Temperature Sensor -->
+        <div class="sensor-card">
+          <div class="sensor-header">
+            <div class="sensor-icon-circle">
+              <i class="fas fa-thermometer-half"></i>
+            </div>
+            <h3>Temperature</h3>
+            <div class="status-indicator good"></div>
+          </div>
+          <div class="sensor-value" id="temp-value">24.3°C</div>
+          <div class="sensor-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 45%"></div>
+            </div>
+            <div class="progress-labels">
+              <span>0°C</span>
+              <span>25°C</span>
+              <span>50°C</span>
+            </div>
+          </div>
+          <div class="sensor-info">
+            <p><i class="fas fa-info-circle"></i> Ideal: 20°C - 30°C</p>
+            <p class="update-time">
+              <i class="fas fa-clock"></i> Updated: <span>5s ago</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Turbidity Sensor -->
+        <div class="sensor-card">
+          <div class="sensor-header">
+            <div class="sensor-icon-circle">
+              <i class="fas fa-vial"></i>
+            </div>
+            <h3>Turbidity</h3>
+            <div class="status-indicator warning"></div>
+          </div>
+          <div class="sensor-value" id="turbidity-value">4.2 NTU</div>
+          <div class="sensor-progress">
+            <div class="progress-bar">
+              <div class="progress-fill warning" style="width: 84%"></div>
+            </div>
+            <div class="progress-labels">
+              <span>Clear 0</span>
+              <span>5 NTU</span>
+              <span>Cloudy 10</span>
+            </div>
+          </div>
+          <div class="sensor-info">
+            <p><i class="fas fa-info-circle"></i> Max safe: 5 NTU</p>
+            <p class="update-time">
+              <i class="fas fa-clock"></i> Updated: <span>15s ago</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- TDS Sensor -->
+        <div class="sensor-card">
+          <div class="sensor-header">
+            <div class="sensor-icon-circle">
+              <i class="fas fa-flask"></i>
+            </div>
+            <h3>Total Dissolved Solids</h3>
+            <div class="status-indicator good"></div>
+          </div>
+          <div class="sensor-value" id="tds-value">180 ppm</div>
+          <div class="sensor-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 36%"></div>
+            </div>
+            <div class="progress-labels">
+              <span>0 ppm</span>
+              <span>500 ppm</span>
+              <span>1000 ppm</span>
+            </div>
+          </div>
+          <div class="sensor-info">
+            <p><i class="fas fa-info-circle"></i> Max safe: 500 ppm</p>
+            <p class="update-time">
+              <i class="fas fa-clock"></i> Updated: <span>8s ago</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Dissolved Oxygen -->
+        <div class="sensor-card">
+          <div class="sensor-header">
+            <div class="sensor-icon-circle">
+              <i class="fas fa-wind"></i>
+            </div>
+            <h3>Dissolved Oxygen</h3>
+            <div class="status-indicator good"></div>
+          </div>
+          <div class="sensor-value" id="do-value">6.8 mg/L</div>
+          <div class="sensor-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 68%"></div>
+            </div>
+            <div class="progress-labels">
+              <span>0 mg/L</span>
+              <span>5 mg/L</span>
+              <span>10 mg/L</span>
+            </div>
+          </div>
+          <div class="sensor-info">
+            <p><i class="fas fa-info-circle"></i> Good: >5 mg/L</p>
+            <p class="update-time">
+              <i class="fas fa-clock"></i> Updated: <span>12s ago</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Conductivity -->
+        <div class="sensor-card">
+          <div class="sensor-header">
+            <div class="sensor-icon-circle">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h3>Conductivity</h3>
+            <div class="status-indicator good"></div>
+          </div>
+          <div class="sensor-value" id="conductivity-value">250 µS/cm</div>
+          <div class="sensor-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 25%"></div>
+            </div>
+            <div class="progress-labels">
+              <span>0 µS/cm</span>
+              <span>500 µS/cm</span>
+              <span>1000 µS/cm</span>
+            </div>
+          </div>
+          <div class="sensor-info">
+            <p><i class="fas fa-info-circle"></i> Normal: 0-800 µS/cm</p>
+            <p class="update-time">
+              <i class="fas fa-clock"></i> Updated: <span>20s ago</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="charts-section">
+        <div class="chart-container">
+          <h3>
+            <i class="fas fa-chart-line"></i> Real-time Trends (Last 5 minutes)
+          </h3>
+          <canvas id="realtimeChart"></canvas>
+        </div>
+
+        <div class="alerts-container">
+          <h3>
+            <i class="fas fa-exclamation-triangle"></i> Alerts & Notifications
+          </h3>
+          <div class="alerts-list">
+            <div class="alert-item warning">
+              <i class="fas fa-exclamation-circle"></i>
+              <div class="alert-content">
+                <p>Turbidity approaching unsafe level (4.2 NTU)</p>
+                <small>10:45 AM, Today</small>
+              </div>
+            </div>
+            <div class="alert-item normal">
+              <i class="fas fa-check-circle"></i>
+              <div class="alert-content">
+                <p>All parameters within normal range</p>
+                <small>10:30 AM, Today</small>
+              </div>
+            </div>
+            <div class="alert-item normal">
+              <i class="fas fa-check-circle"></i>
+              <div class="alert-content">
+                <p>System check completed successfully</p>
+                <small>10:00 AM, Today</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- System Status -->
+      <div class="system-status">
+        <h3><i class="fas fa-server"></i> System Status</h3>
+        <div class="status-grid">
+          <div class="system-card online">
+            <i class="fas fa-satellite-dish"></i>
+            <h4>Sensors</h4>
+            <p>All 6 sensors active</p>
+          </div>
+          <div class="system-card online">
+            <i class="fas fa-wifi"></i>
+            <h4>Connectivity</h4>
+            <p>WiFi: Connected</p>
+          </div>
+          <div class="system-card online">
+            <i class="fas fa-database"></i>
+            <h4>Data Logging</h4>
+            <p>Active</p>
+          </div>
+          <div class="system-card online">
+            <i class="fas fa-battery-full"></i>
+            <h4>Power</h4>
+            <p>Battery: 85%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>AquaMonitor Dashboard</h3>
+          <p>Real-time Water Quality Monitoring</p>
+          <p>Data updates every 5 seconds</p>
+        </div>
+        <div class="footer-section">
+          <p>
+            <i class="fas fa-sync-alt"></i> Auto-refresh:
+            <span id="auto-refresh-status">Enabled</span>
+          </p>
+          <button class="btn-small" id="toggleRefresh">
+            <i class="fas fa-power-off"></i> Toggle Auto-refresh
+          </button>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/charts.js"></script>
+  </body>
+</html>
