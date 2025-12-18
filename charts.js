@@ -1,30 +1,75 @@
-// Additional chart functionality
+/**
+ * Smart Water Quality Monitoring System - Charts Logic
+ * Handles Gauge creation and Historical Line Charts
+ */
 
-// Initialize all charts on page load
 document.addEventListener("DOMContentLoaded", function () {
-  // Additional chart setup if needed
+  // Check if we are on the Data History page (has historicalChart canvas)
+  const historyCtx = document.getElementById('historicalChart');
+  if (historyCtx) {
+    initHistoricalChart(historyCtx);
+  }
+
+  // Check if we are on the Dashboard (has gauge canvases)
+  // Example: createGaugeChart('phGauge', 7.2, 14, 'pH Level');
 });
 
-// Utility function to create gauge charts
+// ==================== HISTORICAL LINE CHART ====================
+function initHistoricalChart(ctx) {
+  const labels = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+  
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'pH Level',
+          data: [7.1, 7.2, 7.0, 7.4, 7.2, 7.1, 7.3],
+          borderColor: '#1a73e8',
+          backgroundColor: 'rgba(26, 115, 232, 0.1)',
+          fill: true,
+          tension: 0.4
+        },
+        {
+          label: 'Temperature (°C)',
+          data: [22, 23, 24, 24.5, 24, 23.5, 23],
+          borderColor: '#f44336',
+          backgroundColor: 'rgba(244, 67, 54, 0.1)',
+          fill: true,
+          tension: 0.4
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top' },
+      },
+      scales: {
+        y: { beginAtZero: false }
+      }
+    }
+  });
+}
+
+// ==================== GAUGE CHART LOGIC ====================
 function createGaugeChart(canvasId, value, maxValue, label) {
-  const ctx = document.getElementById(canvasId).getContext("2d");
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
 
-  // Calculate angle
-  const angle = (value / maxValue) * Math.PI;
-
-  // Draw gauge
   new Chart(ctx, {
     type: "doughnut",
     data: {
-      datasets: [
-        {
-          data: [value, maxValue - value],
-          backgroundColor: [getColorForValue(value, maxValue), "#f0f0f0"],
-          borderWidth: 0,
-          circumference: 180,
-          rotation: 270,
-        },
-      ],
+      datasets: [{
+        data: [value, maxValue - value],
+        backgroundColor: [getColorForValue(value, maxValue), "#e0e0e0"],
+        borderWidth: 0,
+        circumference: 180,
+        rotation: 270,
+      }],
     },
     options: {
       responsive: true,
@@ -35,75 +80,50 @@ function createGaugeChart(canvasId, value, maxValue, label) {
         tooltip: { enabled: false },
       },
     },
-    plugins: [
-      {
-        id: "gaugeLabel",
-        afterDraw: (chart) => {
-          const {
-            ctx,
-            chartArea: { width, height },
-          } = chart;
-          ctx.save();
-          ctx.font = "bold 20px Arial";
-          ctx.fillStyle = "#333";
-          ctx.textAlign = "center";
-          ctx.fillText(value.toFixed(1), width / 2, height / 2 + 10);
+    plugins: [{
+      id: "gaugeLabel",
+      afterDraw: (chart) => {
+        const { ctx, chartArea: { width, height } } = chart;
+        ctx.save();
+        
+        // Value Text
+        ctx.font = "bold 22px sans-serif";
+        ctx.fillStyle = "#333";
+        ctx.textAlign = "center";
+        ctx.fillText(value.toFixed(1), width / 2, height / 2 + 10);
 
-          ctx.font = "12px Arial";
-          ctx.fillStyle = "#666";
-          ctx.fillText(label, width / 2, height / 2 + 30);
-
-          ctx.restore();
-        },
+        // Label Text
+        ctx.font = "14px sans-serif";
+        ctx.fillStyle = "#666";
+        ctx.fillText(label, width / 2, height / 2 + 35);
+        ctx.restore();
       },
-    ],
+    }],
   });
 }
 
 function getColorForValue(value, maxValue) {
   const percentage = value / maxValue;
-  if (percentage < 0.3) return "#4CAF50"; // Green
-  if (percentage < 0.7) return "#FF9800"; // Orange
-  return "#F44336"; // Red
+  if (percentage < 0.4) return "#4CAF50"; // Good
+  if (percentage < 0.8) return "#FF9800"; // Warning
+  return "#F44336"; // Danger
 }
 
-// Export functionality
+// ==================== EXPORT DATA ====================
 function exportData(format = "csv") {
   const data = [
-    ["Timestamp", "pH", "Temperature", "Turbidity", "TDS", "DO"],
-    ["2024-01-15 10:00", 7.2, 24.3, 4.2, 180, 6.8],
-    ["2024-01-15 09:00", 7.1, 23.8, 3.8, 175, 6.5],
-    ["2024-01-15 08:00", 7.3, 22.9, 4.5, 190, 7.1],
-    // Add more data as needed
+    ["Timestamp", "pH", "Temperature", "Turbidity", "TDS"],
+    [new Date().toLocaleString(), 7.2, 24.3, 4.2, 180]
   ];
 
-  let content;
-  if (format === "csv") {
-    content = data.map((row) => row.join(",")).join("\n");
-  } else if (format === "json") {
-    content = JSON.stringify(
-      data.slice(1).map((row) => ({
-        timestamp: row[0],
-        ph: row[1],
-        temperature: row[2],
-        turbidity: row[3],
-        tds: row[4],
-        do: row[5],
-      })),
-      null,
-      2
-    );
-  }
+  let content = format === "csv" 
+    ? data.map(e => e.join(",")).join("\n")
+    : JSON.stringify(data);
 
-  const blob = new Blob([content], {
-    type: format === "csv" ? "text/csv" : "application/json",
-  });
+  const blob = new Blob([content], { type: 'text/csv' });
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `water-quality-data.${format}`;
-  document.body.appendChild(a);
+  a.download = `water-data-${new Date().getTime()}.${format}`;
   a.click();
-  document.body.removeChild(a);
-  window.URL.revokeObjectURL(url);
 }
