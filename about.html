@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,23 +20,24 @@
         </div>
         <ul class="nav-menu">
           <li>
-            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="index.html" data-i18n="nav-home"><i class="fas fa-home"></i> Home</a>
           </li>
           <li>
-            <a href="dashboard.html"
+            <a href="dashboard.html" data-i18n="nav-dash"
               ><i class="fas fa-gauge"></i> Live Dashboard</a
             >
           </li>
           <li>
-            <a href="data.html"
+            <a href="data.html" data-i18n="nav-data"
               ><i class="fas fa-chart-line"></i> Data History</a
             >
           </li>
           <li>
-            <a href="about.html" class="active"
+            <a href="about.html" class="active" data-i18n="nav-about"
               ><i class="fas fa-users"></i> About</a
             >
           </li>
+          <li><button id="lang-toggle" class="btn-small"><i class="fas fa-language"></i> Afaan Oromo</button></li>
         </ul>
 
         <div class="mobile-menu">
@@ -45,12 +47,11 @@
     </nav>
 
     <div class="about-container">
-      <!-- Project Overview -->
       <section class="project-overview">
-        <h1><i class="fas fa-info-circle"></i> About the Project</h1>
+        <h1 data-i18n="about-title"><i class="fas fa-info-circle"></i> About the Project</h1>
         <div class="project-card">
-          <h2>Smart Water Quality Monitoring System</h2>
-          <p>
+          <h2 data-i18n="main-project-title">Smart Water Quality Monitoring System</h2>
+          <p data-i18n="project-desc">
             This CBTP (Community-Based Technology Project) aims to develop a
             real-time water quality monitoring system using IoT technology. The
             system continuously tracks various water parameters and provides
@@ -62,28 +63,28 @@
             <div class="detail-item">
               <i class="fas fa-university"></i>
               <div>
-                <h4>Institution</h4>
+                <h4 data-i18n="stat-inst">Institution</h4>
                 <p>Jimma University Institute of Technology</p>
               </div>
             </div>
             <div class="detail-item">
               <i class="fas fa-book"></i>
               <div>
-                <h4>Course</h4>
+                <h4 data-i18n="stat-course">Course</h4>
                 <p>CBTP - Community-Based Technology Project</p>
               </div>
             </div>
             <div class="detail-item">
               <i class="fas fa-graduation-cap"></i>
               <div>
-                <h4>Program</h4>
+                <h4 data-i18n="stat-prog">Program</h4>
                 <p>Electrical and Computer Engineering</p>
               </div>
             </div>
             <div class="detail-item">
               <i class="fas fa-calendar-alt"></i>
               <div>
-                <h4>Academic Year</h4>
+                <h4 data-i18n="stat-year">Academic Year</h4>
                 <p>4th Year (2023-2024)</p>
               </div>
             </div>
@@ -91,11 +92,9 @@
         </div>
       </section>
 
-      <!-- Team Members -->
       <section class="team-section">
-        <h2><i class="fas fa-users"></i> Project Team</h2>
+        <h2 data-i18n="team-title"><i class="fas fa-users"></i> Project Team</h2>
         <div class="team-grid">
-          <!-- Team Leader -->
           <div class="team-card">
             <div class="team-img">
               <i class="fas fa-user-circle"></i>
@@ -109,7 +108,6 @@
             </div>
           </div>
 
-          <!-- Software Developer -->
           <div class="team-card">
             <div class="team-img">
               <i class="fas fa-user-circle"></i>
@@ -123,7 +121,6 @@
             </div>
           </div>
 
-          <!-- Team Member -->
           <div class="team-card">
             <div class="team-img">
               <i class="fas fa-user-circle"></i>
@@ -137,7 +134,6 @@
             </div>
           </div>
 
-          <!-- Team Member -->
           <div class="team-card">
             <div class="team-img">
               <i class="fas fa-user-circle"></i>
@@ -151,7 +147,6 @@
             </div>
           </div>
 
-          <!-- Team Member -->
           <div class="team-card">
             <div class="team-img">
               <i class="fas fa-user-circle"></i>
@@ -167,9 +162,8 @@
         </div>
       </section>
 
-      <!-- Advisor -->
       <section class="advisor-section">
-        <h2><i class="fas fa-chalkboard-teacher"></i> Project Advisor</h2>
+        <h2 data-i18n="advisor-section-title"><i class="fas fa-chalkboard-teacher"></i> Project Advisor</h2>
         <div class="advisor-card">
           <div class="advisor-img">
             <i class="fas fa-user-tie"></i>
@@ -193,16 +187,15 @@
         </div>
       </section>
 
-      <!-- Project Objectives -->
       <section class="objectives-section">
-        <h2><i class="fas fa-bullseye"></i> CBTP Project Objectives</h2>
+        <h2 data-i18n="objectives-title"><i class="fas fa-bullseye"></i> CBTP Project Objectives</h2>
         <div class="objectives-grid">
           <div class="objective-card">
             <div class="objective-icon">
               <i class="fas fa-water"></i>
             </div>
-            <h3>Water Quality Assessment</h3>
-            <p>
+            <h3 data-i18n="obj-1-title">Water Quality Assessment</h3>
+            <p data-i18n="obj-1-desc">
               Develop a system to monitor key water quality parameters in
               real-time
             </p>
@@ -212,8 +205,8 @@
             <div class="objective-icon">
               <i class="fas fa-microchip"></i>
             </div>
-            <h3>IoT Implementation</h3>
-            <p>
+            <h3 data-i18n="obj-2-title">IoT Implementation</h3>
+            <p data-i18n="obj-2-desc">
               Apply IoT concepts and embedded systems for environmental
               monitoring
             </p>
@@ -223,8 +216,8 @@
             <div class="objective-icon">
               <i class="fas fa-chart-line"></i>
             </div>
-            <h3>Data Analysis</h3>
-            <p>
+            <h3 data-i18n="obj-3-title">Data Analysis</h3>
+            <p data-i18n="obj-3-desc">
               Collect and analyze water quality data for community awareness
             </p>
           </div>
@@ -233,15 +226,14 @@
             <div class="objective-icon">
               <i class="fas fa-handshake"></i>
             </div>
-            <h3>Community Impact</h3>
-            <p>Contribute to public health through water quality monitoring</p>
+            <h3 data-i18n="obj-4-title">Community Impact</h3>
+            <p data-i18n="obj-4-desc">Contribute to public health through water quality monitoring</p>
           </div>
         </div>
       </section>
 
-      <!-- University Information -->
       <section class="university-section">
-        <h2>
+        <h2 data-i18n="uni-section-title">
           <i class="fas fa-university"></i> About JU Institute of Technology
         </h2>
         <div class="university-card">
@@ -250,7 +242,7 @@
           </div>
           <div class="university-info">
             <h3>Jimma University Institute of Technology</h3>
-            <p>
+            <p data-i18n="uni-desc">
               Jimma University is one of Ethiopia's leading higher education
               institutions, committed to excellence in teaching, research, and
               community service.
@@ -260,21 +252,21 @@
               <div class="detail">
                 <i class="fas fa-map-marker-alt"></i>
                 <div>
-                  <h4>Location</h4>
+                  <h4 data-i18n="uni-loc-label">Location</h4>
                   <p>Jimma, Oromia, Ethiopia</p>
                 </div>
               </div>
               <div class="detail">
                 <i class="fas fa-graduation-cap"></i>
                 <div>
-                  <h4>Program</h4>
+                  <h4 data-i18n="uni-prog-label">Program</h4>
                   <p>B.Sc. in Electrical and Computer Engineering</p>
                 </div>
               </div>
               <div class="detail">
                 <i class="fas fa-calendar"></i>
                 <div>
-                  <h4>Duration</h4>
+                  <h4 data-i18n="uni-dur-label">Duration</h4>
                   <p>5-Year Engineering Program</p>
                 </div>
               </div>
@@ -283,9 +275,8 @@
         </div>
       </section>
 
-      <!-- Hardware Used -->
       <section class="hardware-section">
-        <h2><i class="fas fa-microchip"></i> System Components</h2>
+        <h2 data-i18n="sys-components-title"><i class="fas fa-microchip"></i> System Components</h2>
         <div class="hardware-grid">
           <div class="hardware-card">
             <i class="fab fa-raspberry-pi"></i>
@@ -337,18 +328,13 @@
         </div>
       </section>
 
-      <!-- Contact Section -->
       <section class="contact-section">
-        <h2><i class="fas fa-envelope"></i> Contact Information</h2>
+        <h2 data-i18n="contact-title"><i class="fas fa-envelope"></i> Contact Information</h2>
         <div class="contact-container">
           <div class="contact-info">
-            <h3>Department Information</h3>
+            <h3 data-i18n="dept-info-title">Department Information</h3>
             <p>Department of Electrical and Computer Engineering</p>
-            <!-- In the navbar section, update the mobile menu icon -->
-            <div class="mobile-menu">
-              <i class="fas fa-bars"></i>
-            </div>
-
+            
             <div class="contact-details">
               <p>
                 <i class="fas fa-university"></i> Jimma University Institute of
@@ -363,14 +349,14 @@
             </div>
 
             <div class="project-contact">
-              <h4>Project Contact:</h4>
+              <h4 data-i18n="project-contact-label">Project Contact:</h4>
               <p><i class="fas fa-envelope"></i> aquamonitor.cbtp@ju.edu.et</p>
               <p><i class="fas fa-phone"></i> +251 91 234 5678</p>
             </div>
           </div>
 
           <div class="contact-form">
-            <h3>Send Message to Team</h3>
+            <h3 data-i18n="form-title">Send Message to Team</h3>
             <form id="contactForm">
               <div class="form-group">
                 <input type="text" placeholder="Your Name" required />
@@ -389,7 +375,7 @@
                 ></textarea>
               </div>
               <button type="submit" class="btn-primary">
-                <i class="fas fa-paper-plane"></i> Send Message
+                <i class="fas fa-paper-plane"></i> <span data-i18n="send-btn">Send Message</span>
               </button>
             </form>
           </div>
@@ -407,20 +393,20 @@
         </div>
 
         <div class="footer-section">
-          <h3>Quick Links</h3>
+          <h3 data-i18n="footer-links">Quick Links</h3>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="dashboard.html">Live Dashboard</a></li>
-            <li><a href="data.html">Data History</a></li>
-            <li><a href="about.html">Team & Project</a></li>
+            <li><a href="index.html" data-i18n="nav-home">Home</a></li>
+            <li><a href="dashboard.html" data-i18n="nav-dash">Live Dashboard</a></li>
+            <li><a href="data.html" data-i18n="nav-data">Data History</a></li>
+            <li><a href="about.html" data-i18n="nav-about">Team & Project</a></li>
           </ul>
         </div>
 
         <div class="footer-section">
-          <h3>Project Documentation</h3>
+          <h3 data-i18n="footer-docs">Project Documentation</h3>
           <p>Complete CBTP project report and documentation</p>
           <button class="btn-small">
-            <i class="fas fa-download"></i> Download Project Report
+            <i class="fas fa-download"></i> <span data-i18n="download-btn">Download Project Report</span>
           </button>
         </div>
       </div>
@@ -432,6 +418,6 @@
       </div>
     </footer>
 
-    <script src="js/app.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
