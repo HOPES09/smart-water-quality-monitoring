@@ -923,3 +923,50 @@ canvas {
   height: 300px !important;
 }
 
+/* Mobile / small-screen nav menu (shown when .nav-menu.active) */
+.mobile-menu {
+  display: none;
+  cursor: pointer;
+  color: white;
+  font-size: 1.4rem;
+  padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu {
+    display: block;
+  }
+
+  /* show vertical dropdown when active */
+  .nav-menu.active {
+    display: flex;
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    background: linear-gradient(180deg, rgba(10,25,49,0.95), rgba(13,71,161,0.95));
+    padding: 0.75rem;
+    border-radius: 8px;
+    flex-direction: column;
+    gap: 0.25rem;
+    z-index: 1001;
+    min-width: 200px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+
+  .nav-menu.active li {
+    width: 100%;
+  }
+
+  .nav-menu.active a {
+    display: block;
+    padding: 0.6rem 0.8rem;
+    color: white;
+    border-radius: 6px;
+  }
+
+  .nav-menu.active a:hover,
+  .nav-menu.active a.active {
+    background: rgba(255,255,255,0.08);
+  }
+}
+

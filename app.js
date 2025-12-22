@@ -1,4 +1,3 @@
-
 /**
  * Smart Water Quality Monitoring System
  * Professional JavaScript Implementation
@@ -22,17 +21,21 @@ class WaterMonitoringSystem {
         "nav-data": '<i class="fas fa-chart-line"></i> Data History',
         "nav-about": '<i class="fas fa-users"></i> About',
         "hero-title": "Smart Water Quality Monitoring System",
-        "hero-subtitle": "Real-time monitoring of water parameters using IoT technology",
+        "hero-subtitle":
+          "Real-time monitoring of water parameters using IoT technology",
         "view-dash-btn": "View Live Dashboard",
         "features-title": "Key Features",
         "feat-rt-title": "Real-time Monitoring",
-        "feat-rt-desc": "Continuous tracking of water quality parameters every 5 seconds",
+        "feat-rt-desc":
+          "Continuous tracking of water quality parameters every 5 seconds",
         "feat-alert-title": "Instant Alerts",
-        "feat-alert-desc": "Get notified when water quality exceeds safe limits",
+        "feat-alert-desc":
+          "Get notified when water quality exceeds safe limits",
         "feat-data-title": "Data Analytics",
         "feat-data-desc": "Historical data analysis with interactive charts",
         "feat-remote-title": "Remote Access",
-        "feat-remote-desc": "Monitor water quality from anywhere using web interface",
+        "feat-remote-desc":
+          "Monitor water quality from anywhere using web interface",
         "status-section-title": "Current Water Quality Status",
         "ph-label": "pH Level",
         "temp-label": "Temperature",
@@ -52,17 +55,20 @@ class WaterMonitoringSystem {
         "nav-data": '<i class="fas fa-chart-line"></i> Seenaa Daataa',
         "nav-about": '<i class="fas fa-users"></i> Waa’ee Keenya',
         "hero-title": "Sirna Hordoffii Qulqullina Bishaan Saayinsawaa",
-        "hero-subtitle": "Teknooloojii IoT fayyadamuun qulqullina bishaanii hordofuu",
+        "hero-subtitle":
+          "Teknooloojii IoT fayyadamuun qulqullina bishaanii hordofuu",
         "view-dash-btn": "Dashboard Ilaali",
         "features-title": "Dandeettiiwwan Ijoo",
         "feat-rt-title": "Hordoffii Yeroodhaa",
         "feat-rt-desc": "Sekondii 5 hundaatti jijjiirama bishaanii hordofuu",
         "feat-alert-title": "Akeekkachiisa Yeroodhaa",
-        "feat-alert-desc": "Yoo qulqullinni bishaanii hir’ate akeekkachiisa ni kenna",
+        "feat-alert-desc":
+          "Yoo qulqullinni bishaanii hir’ate akeekkachiisa ni kenna",
         "feat-data-title": "Xiinxala Daataa",
         "feat-data-desc": "Daataa darbe bifa fakkii fi chaartiitiin xiinxaluu",
         "feat-remote-title": "Bakka Jiruu To’achuu",
-        "feat-remote-desc": "Interneetiin bakka jirtan hundatti hordofuu dandeessu",
+        "feat-remote-desc":
+          "Interneetiin bakka jirtan hundatti hordofuu dandeessu",
         "status-section-title": "Haala Qulqullina Bishaan Ammee",
         "ph-label": "Sadarkaa pH",
         "temp-label": "Ho'ina (Temp)",
@@ -101,10 +107,24 @@ class WaterMonitoringSystem {
   initEventListeners() {
     const langBtn = document.getElementById("lang-toggle");
     if (langBtn) {
-      langBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        this.toggleLanguage();
-      });
+      // Use pointer events where available to handle touch and mouse uniformly
+      let recentlyHandled = false;
+      const langHandler = (e) => {
+        if (e.type === "pointerdown") {
+          e.preventDefault();
+          recentlyHandled = true;
+          this.toggleLanguage();
+          setTimeout(() => (recentlyHandled = false), 700);
+          return;
+        }
+        if (e.type === "click") {
+          if (recentlyHandled) return; // ignore duplicate click after touch
+          e.preventDefault();
+          this.toggleLanguage();
+        }
+      };
+      langBtn.addEventListener("pointerdown", langHandler);
+      langBtn.addEventListener("click", langHandler);
     }
 
     const refreshBtn = document.getElementById("refreshBtn");
@@ -123,7 +143,16 @@ class WaterMonitoringSystem {
     localStorage.setItem("selectedLanguage", this.currentLang);
     this.updateUI();
 
-    const msg = this.currentLang === "en" ? "Language: English" : "Afaan: Oromo";
+    // Close mobile nav if open (helps mobile UX)
+    const navMenu = document.querySelector(".nav-menu");
+    const mobileMenuBtn = document.querySelector(".mobile-menu");
+    if (navMenu && navMenu.classList.contains("active")) {
+      navMenu.classList.remove("active");
+      if (mobileMenuBtn) mobileMenuBtn.classList.remove("active");
+    }
+
+    const msg =
+      this.currentLang === "en" ? "Language: English" : "Afaan: Oromo";
     this.showNotification(msg, "success");
   }
 
